@@ -8,6 +8,16 @@ build:
   local:
     push: false
   artifacts:
+    - image: rrazvan/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.jsx'
+            dest: .
+          - src: '**/*.js'
+            dest: .
     - image: rrazvan/auth
       context: auth
       docker:

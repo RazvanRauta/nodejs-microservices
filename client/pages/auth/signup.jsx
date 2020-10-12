@@ -1,20 +1,26 @@
 import { useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
+import Router from 'next/router'
 
-import axios from 'axios'
+import useRequest from '../../hooks/use-request'
 
 const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState([])
+
+    const { doRequest, errors } = useRequest({
+        url: '/api/users/signup',
+        method: 'post',
+        body: {
+            email,
+            password,
+        },
+        onSuccess: () => Router.push('/'),
+    })
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        try {
-            const response = await axios.post('/api/users/signup', { email, password })
-        } catch (error) {
-            setErrors(error.response.data.errors)
-        }
+        await doRequest()
     }
 
     return (
@@ -43,6 +49,7 @@ const SignUp = () => {
                         placeholder="Password"
                     />
                 </Form.Group>
+                {errors}
                 <Button variant="primary" type="submit">
                     Sign Up
                 </Button>

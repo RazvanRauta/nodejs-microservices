@@ -1,14 +1,17 @@
-import buildClient from '../api/build-client'
+import { useSelector } from 'react-redux'
+import { getUser } from '../redux/user/selectors'
+import isNull from 'lodash/isNull'
 
-const LandingPage = ({ currentUser }) => {
-    console.log({ currentUser })
+const LandingPage = (data) => {
+    const currentUser = useSelector(state=> getUser(state))
+    return (
+    <>
+    <h1>You are{isNull(currentUser) ? ' NOT' : ''} signed in</h1>
+    <h2>Hello {currentUser.email}</h2>
+    </>
+    )
 
-    return <h1>You are{!currentUser ? ' NOT' : ''} signed in</h1>
 }
 
-LandingPage.getInitialProps = async (ctx) => {
-    const { data } = await buildClient(ctx).get('/api/users/currentuser')
-    return data
-}
 
 export default LandingPage

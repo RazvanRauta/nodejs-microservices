@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import Router from 'next/router'
+import { useDispatch } from 'react-redux'
 
 import useRequest from '../../hooks/use-request'
+import { setUser } from '../../redux/user/action'
 
 const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
 
     const { doRequest, errors } = useRequest({
         url: '/api/users/signin',
@@ -15,7 +18,10 @@ const SignIn = () => {
             email,
             password,
         },
-        onSuccess: () => Router.push('/'),
+        onSuccess: (data) => {
+            dispatch(setUser(data))
+            Router.push('/')
+        },
     })
 
     const onSubmit = async (event) => {

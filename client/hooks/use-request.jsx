@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { get } from 'lodash'
 import { useState } from 'react'
 import { Alert } from 'react-bootstrap'
 
@@ -14,11 +15,12 @@ const useRequest = ({ url, method, body, onSuccess }) => {
             }
             return response.data
         } catch (errs) {
+            const errors = get(errs, 'response.data.errors', [])
             setErrors(
                 <Alert variant="danger">
                     <h4>Ooops...</h4>
                     <ul className="my-0">
-                        {errs.response.data.errors.map((err) => (
+                        {errors.map((err) => (
                             <li key={err.message}>{err.message}</li>
                         ))}
                     </ul>

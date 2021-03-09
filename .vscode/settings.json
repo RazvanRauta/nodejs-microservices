@@ -1,4 +1,4 @@
 {
-    "eslint.workingDirectories": ["./client", "./auth"],
+    "eslint.workingDirectories": ["./client", "./auth", "./common"],
     "prettier.configPath": "./client/.prettierrc"
 }

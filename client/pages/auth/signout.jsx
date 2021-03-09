@@ -11,9 +11,9 @@ const SignOut = () => {
         onSuccess: () => router.push('/'),
     })
 
-    // useEffect(() => {
-    //     doRequest()
-    // }, [])
+    useEffect(() => {
+        doRequest()
+    }, [])
 
     return (
         <div>

@@ -7,39 +7,33 @@ import { removeUser, setUser } from '@/redux/user/action'
 import { wrapper } from '@/redux/store'
 import Header from '@/components/Header'
 
-class MyApp extends App {
-    /*eslint-disable */
-    static getInitialProps = async ({ Component, ctx }) => {
-        const { data } = await buildClient(ctx).get('/api/users/currentuser')
-        /*eslint-enable */
+const MyApp = ({ Component, pageProps }) => {
+    return (
+        <>
+            <Header />
+            <Component {...pageProps} />
+        </>
+    )
+}
 
-        if (data) {
-            const { currentUser } = data
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+    const { data } = await buildClient(ctx).get('/api/users/currentuser')
 
-            ctx.store.dispatch(setUser(currentUser))
-        } else {
-            ctx.store.dispatch(removeUser())
-        }
+    if (data) {
+        const { currentUser } = data
 
-        return {
-            pageProps: {
-                // Call page-level getInitialProps
-                ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
-                // Some custom thing for all pages
-                pathname: ctx.pathname,
-            },
-        }
+        ctx.store.dispatch(setUser(currentUser))
+    } else {
+        ctx.store.dispatch(removeUser())
     }
 
-    render() {
-        const { Component, pageProps } = this.props
-
-        return (
-            <>
-                <Header />
-                <Component {...pageProps} />
-            </>
-        )
+    return {
+        pageProps: {
+            // Call page-level getInitialProps
+            ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+            // Some custom thing for all pages
+            pathname: ctx.pathname,
+        },
     }
 }
 

@@ -14,7 +14,7 @@ import { app } from '../app'
 declare global {
     namespace NodeJS {
         interface Global {
-            signin(): string[]
+            signin(userId?: string): string[]
         }
     }
 }
@@ -46,11 +46,11 @@ afterAll(async () => {
     await mongoose.connection.close()
 })
 
-global.signin = () => {
+global.signin = (userId?: string) => {
     const sessionJSON = JSON.stringify({
         jwt: jwt.sign(
             {
-                id: '123213213',
+                id: userId ?? '123213213',
                 email: 'test@test.com',
             },
             process.env.JWT_KEY!

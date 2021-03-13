@@ -1,7 +1,7 @@
 /**
  * @author: Razvan Rauta
- * Date: Oct 11 2020
- * Time: 14:58
+ * Date: Mar 13 2021
+ * Time: 13:57
  */
 
 import express from 'express'
@@ -16,6 +16,8 @@ import {
 
 import { createTicketRouter } from './routes/new'
 import { showTicketRouter } from './routes/show'
+import { indexTicketRouter } from './routes/index'
+import { updateTicketRouter } from './routes/update'
 
 const app = express()
 app.set('trust proxy', true)
@@ -36,6 +38,8 @@ app.use(currentUser)
 
 app.use(showTicketRouter)
 app.use(createTicketRouter)
+app.use(indexTicketRouter)
+app.use(updateTicketRouter)
 
 /**
  *

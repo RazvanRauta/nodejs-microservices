@@ -1,3 +1,9 @@
+/**
+ * @author: Razvan Rauta
+ * Date: Mar 13 2021
+ * Time: 14:36
+ */
+
 import { requireAuth, validateRequest } from '@rrazvan.dev/ticketing-common'
 import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
@@ -26,7 +32,7 @@ router.post(
 
         await ticket.save()
 
-        res.sendStatus(201).send(ticket)
+        res.status(201).send(ticket)
     }
 )
 

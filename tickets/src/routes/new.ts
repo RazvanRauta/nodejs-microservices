@@ -7,7 +7,10 @@
 import { requireAuth, validateRequest } from '@rrazvan.dev/ticketing-common'
 import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
+
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher'
 import { Ticket } from '../models/ticket'
+import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -31,6 +34,13 @@ router.post(
         })
 
         await ticket.save()
+
+        new TicketCreatedPublisher(natsWrapper.client).publish({
+            id: ticket.id,
+            title: ticket.title,
+            price: ticket.price,
+            userId: ticket.userId,
+        })
 
         res.status(201).send(ticket)
     }

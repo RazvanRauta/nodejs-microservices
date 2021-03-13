@@ -1,3 +1,15 @@
-# nodejs-microservices
-Microservices implementation with NodeJS
+# Microservices with NodeJs and Next.js
+
+## Setup JWT_KEY
+
+```shell
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdfgsdas
+
+```
+
+## Setup Ingress-Nginx
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml
+
+```

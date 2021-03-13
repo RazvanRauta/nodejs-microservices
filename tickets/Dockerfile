@@ -2,10 +2,10 @@ FROM node:14-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY ./package*.json ./
 
 RUN npm install --production
 
-COPY . .
+COPY ./ ./
 
 CMD ["npm", "start"]

@@ -8,6 +8,7 @@ import request from 'supertest'
 import mongoose from 'mongoose'
 
 import { app } from '../../app'
+import { natsWrapper } from '../../nats-wrapper'
 
 const createTicket = (title: string, price: number) => {
     return request(app)
@@ -81,4 +82,16 @@ it('updates the ticket provide', async () => {
 
     expect(updatedTitle).toEqual('This is another title')
     expect(updatePrice).toEqual(254)
+})
+
+it('should updated an event', async () => {
+    const {
+        body: { id },
+    } = await createTicket('This is a title', 123)
+    await request(app)
+        .put(`/api/tickets/${id}`)
+        .set('Cookie', global.signin())
+        .send({ title: 'This is another title', price: 254 })
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled()
 })

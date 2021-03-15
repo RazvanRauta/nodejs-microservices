@@ -1,8 +1,13 @@
+/**
+ * @ @author: Razvan Rauta
+ * @ Date: Mar 14 2021
+ * @ Time: 13:20
+ */
+
 import mongoose from 'mongoose'
 import { OrderStatus } from '@rrazvan.dev/ticketing-common'
 import { TicketDoc } from './ticket'
-
-type Status = 'expired' | 'paid' | 'pending'
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 
 interface OrderAttrs {
     ticket: TicketDoc
@@ -16,10 +21,15 @@ interface OrderDoc extends mongoose.Document {
     userId: string
     status: OrderStatus
     expiresAt: Date
+    version: number
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
     build(attrs: OrderAttrs): OrderDoc
+    findByEvent(event: {
+        id: string
+        version: number
+    }): Promise<OrderDoc | null>
 }
 
 const orderSchema = new mongoose.Schema(
@@ -52,6 +62,15 @@ const orderSchema = new mongoose.Schema(
     }
 )
 
+orderSchema.set('versionKey', 'version')
+orderSchema.plugin(updateIfCurrentPlugin)
+
+orderSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+    return Order.findOne({
+        _id: event.id,
+        version: event.version - 1,
+    })
+}
 orderSchema.statics.build = (attrs: OrderAttrs) => {
     return new Order(attrs)
 }

@@ -67,6 +67,7 @@ router.post(
             id: order.id,
             //@ts-expect-error
             status: order.status,
+            version: order.version,
             userId: order.userId,
             expiresAt: order.expiresAt.toISOString(),
             ticket: {

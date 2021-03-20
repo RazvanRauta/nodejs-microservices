@@ -14,11 +14,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: rrazvan/client
-        resources:
-          limits:
-            memory: "384Mi"
-            cpu: "500m"
+        image: rrazvandev/client
 ---
 apiVersion: v1
 kind: Service

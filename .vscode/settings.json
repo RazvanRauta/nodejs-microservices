@@ -1,4 +1,13 @@
 {
-    "eslint.workingDirectories": ["./client", "./auth", "./common"],
-    "prettier.configPath": "./client/.prettierrc"
+    "eslint.workingDirectories": [
+        "./client",
+        "./auth",
+        "./common",
+        "./tickets",
+        "./orders",
+        "./expiration",
+        "./payments"
+    ],
+    "prettier.configPath": "./client/.prettierrc",
+    "eslint.nodePath": "C:\\Program Files\\nodejs\\"
 }

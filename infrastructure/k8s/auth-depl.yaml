@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: rrazvan/auth
+          image: rrazvandev/auth
           env:
             - name: MONGO_URI
               value: 'mongodb://auth-mongo-srv:27017/auth'
@@ -23,10 +23,6 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "250m"
 
 ---
 apiVersion: v1

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: rrazvan/tickets
+          image: rrazvandev/tickets
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -31,10 +31,6 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "250m"
 
 ---
 apiVersion: v1

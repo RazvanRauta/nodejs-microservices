@@ -26,4 +26,8 @@ spec:
               value: ticketing
             - name: REDIS_HOST
               value: expiration-redis-srv
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
 

@@ -14,6 +14,8 @@ import {
     currentUser,
 } from '@rrazvan.dev/ticketing-common'
 
+import { createChargeRouter } from './routes/new'
+
 const app = express()
 app.set('trust proxy', true)
 app.use(json())
@@ -26,6 +28,11 @@ app.use(
 )
 
 app.use(currentUser)
+
+/**
+ * * Routes
+ */
+app.use(createChargeRouter)
 
 /**
  *

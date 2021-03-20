@@ -1,7 +1,7 @@
 /**
  * @author: Razvan Rauta
- * Date: Mar 14 2021
- * Time: 13:18
+ * Date: Mar 20 2021
+ * Time: 12:14
  */
 
 import {
@@ -16,6 +16,8 @@ import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
 import { Types as MongooseTypes } from 'mongoose'
 import { Order } from '../models/order'
+import { Payment } from '../models/payment'
+import { stripe } from '../stripe'
 
 const router = express.Router()
 
@@ -48,7 +50,20 @@ router.post(
             throw new BadRequestError('Order is cancelled')
         }
 
-        res.status(201)
+        const charge = await stripe.charges.create({
+            amount: order.price * 100,
+            currency: 'usd',
+            source: token,
+            description: `Payment for ticketing.dev`,
+        })
+
+        const payment = Payment.build({
+            orderId,
+            stripeId: charge.id,
+        })
+        await payment.save()
+
+        res.status(201).send({ success: true })
     }
 )
 

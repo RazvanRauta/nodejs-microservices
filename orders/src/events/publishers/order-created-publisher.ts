@@ -6,10 +6,10 @@
 
 import {
     Publisher,
-    OrderCancelledEvent,
+    OrderCreatedEvent,
     Subjects,
 } from '@rrazvan.dev/ticketing-common'
 
-export class OrderCancelledPublisher extends Publisher<OrderCancelledEvent> {
-    subject: Subjects.OrderCancelled = Subjects.OrderCancelled
+export class OrderCreatedPublisher extends Publisher<OrderCreatedEvent> {
+    subject: Subjects.OrderCreated = Subjects.OrderCreated
 }

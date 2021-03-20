@@ -17,7 +17,8 @@ const MyApp = ({ Component, pageProps }) => {
 }
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
-    const { data } = await buildClient(ctx).get('/api/users/currentuser')
+    const client = buildClient(ctx)
+    const { data } = await client.get('/api/users/currentuser')
 
     if (data) {
         const { currentUser } = data
@@ -30,7 +31,9 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
     return {
         pageProps: {
             // Call page-level getInitialProps
-            ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+            ...(Component.getInitialProps
+                ? await Component.getInitialProps(ctx, client)
+                : {}),
             // Some custom thing for all pages
             pathname: ctx.pathname,
         },

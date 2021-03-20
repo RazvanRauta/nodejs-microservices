@@ -14,7 +14,7 @@ import {
 import express, { Request, Response } from 'express'
 import { param } from 'express-validator'
 import { Types as MongooseTypes } from 'mongoose'
-import { OrderCancelledPublisher } from '../events/publishers/order-created-publisher'
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher'
 
 import { Order } from '../models/order'
 import { natsWrapper } from '../nats-wrapper'

@@ -7,7 +7,7 @@ import {
 } from '@rrazvan.dev/ticketing-common'
 import { QUEUE_GROUP_NAME } from './queue-group-name'
 import { Order } from '../../models/order'
-import { OrderCancelledPublisher } from '../publishers/order-created-publisher'
+import { OrderCancelledPublisher } from '../publishers/order-cancelled-publisher'
 
 export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent> {
     subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete

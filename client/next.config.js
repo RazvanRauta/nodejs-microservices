@@ -1,4 +1,8 @@
 module.exports = {
+    env: {
+        stripePublicKey:
+            'pk_test_51IX7ANAMmGQtQHB5lamnBG1dodeH6CJHsvYcyGv1lIK8BpEmtYrLPdZYwor8T3XON7ISVfLCmb26T0X0RTNPcLSI00Iy8lE3JC',
+    },
     webpackDevMiddleware: (config) => {
         config.watchOptions = {
             poll: 800,

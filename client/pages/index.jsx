@@ -1,15 +1,45 @@
-import { useSelector } from 'react-redux'
-import { getUser } from '@/redux/user/selectors'
-import isNull from 'lodash/isNull'
+import Link from 'next/link'
+import { Container, Table, NavLink } from 'react-bootstrap'
 
-const LandingPage = () => {
-    const currentUser = useSelector((state) => getUser(state))
+const LandingPage = ({ tickets }) => {
+    const ticketList = tickets.map((ticket) => {
+        return (
+            <tr key={ticket.id}>
+                <td>{ticket.title}</td>
+                <td>${ticket.price}</td>
+                <td>
+                    <Link
+                        href="/tickets/[ticketId]"
+                        as={`/tickets/${ticket.id}`}
+                        passHref>
+                        <NavLink>View</NavLink>
+                    </Link>
+                </td>
+            </tr>
+        )
+    })
+
     return (
-        <>
-            <h1>You are{isNull(currentUser) ? ' NOT' : ''} signed in</h1>
-            {currentUser && <h2>Hello {currentUser.email}</h2>}
-        </>
+        <Container fluid="sm">
+            <h1>Tickets</h1>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>{ticketList}</tbody>
+            </Table>
+        </Container>
     )
+}
+
+LandingPage.getInitialProps = async (context, client) => {
+    const { data } = await client.get('/api/tickets')
+
+    return { tickets: data }
 }
 
 export default LandingPage

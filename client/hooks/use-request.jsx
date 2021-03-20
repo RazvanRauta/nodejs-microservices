@@ -6,26 +6,28 @@ import { Alert } from 'react-bootstrap'
 const useRequest = ({ url, method, body, onSuccess }) => {
     const [errors, setErrors] = useState(null)
 
-    const doRequest = async () => {
+    const doRequest = async (props = {}) => {
         try {
             setErrors(null)
-            const response = await axios[method](url, body)
+            const response = await axios[method](url, { ...body, ...props })
             if (onSuccess) {
                 onSuccess(response.data)
             }
             return response.data
         } catch (errs) {
             const errors = get(errs, 'response.data.errors', [])
-            setErrors(
-                <Alert variant="danger">
-                    <h4>Ooops...</h4>
-                    <ul className="my-0">
-                        {errors.map((err) => (
-                            <li key={err.message}>{err.message}</li>
-                        ))}
-                    </ul>
-                </Alert>
-            )
+            errors.length > 0
+                ? setErrors(
+                      <Alert variant="danger">
+                          <h4>Ooops...</h4>
+                          <ul className="my-0">
+                              {errors.map((err) => (
+                                  <li key={err.message}>{err.message}</li>
+                              ))}
+                          </ul>
+                      </Alert>
+                  )
+                : setErrors(null)
         }
     }
 

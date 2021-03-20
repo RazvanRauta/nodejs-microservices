@@ -40,6 +40,7 @@ app.use(createChargeRouter)
  *
  */
 app.all('*', async (req, res, next) => {
+    console.log({ req })
     throw new NotFoundError()
 })
 

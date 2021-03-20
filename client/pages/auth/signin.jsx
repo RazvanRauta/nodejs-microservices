@@ -32,7 +32,9 @@ const SignIn = () => {
 
     return (
         <Container fluid="sm">
-            <Form style={{ maxWidth: '70%', margin: '0 auto' }} onSubmit={onSubmit}>
+            <Form
+                style={{ maxWidth: '70%', margin: '0 auto' }}
+                onSubmit={onSubmit}>
                 <h1>Sign In</h1>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>

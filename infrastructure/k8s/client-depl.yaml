@@ -15,9 +15,12 @@ spec:
       containers:
       - name: client
         image: rrazvandev/client
+        env:
+          - name: NODE_OPTIONS
+            value: --max-old-space-size=8192
         resources:
             limits:
-              memory: "350Mi"
+              memory: "500Mi"
               cpu: "250m"
 ---
 apiVersion: v1

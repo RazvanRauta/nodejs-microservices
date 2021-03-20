@@ -18,10 +18,7 @@ const OrderPreview = ({ order }) => {
         body: {
             orderId: order.id,
         },
-        onSuccess: (payment) => {
-            console.log(payment)
-            router.push('/')
-        },
+        onSuccess: () => router.push('/orders'),
     })
 
     useEffect(() => {

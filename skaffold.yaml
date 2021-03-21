@@ -42,6 +42,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: rrazvandev/payments
+      context: payments
+      docker:
+        dockerfile: dev.Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: rrazvandev/expiration
       context: expiration
       docker:
@@ -50,8 +58,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: rrazvandev/payments
-      context: payments
+    - image: rrazvandev/mail
+      context: mail
       docker:
         dockerfile: dev.Dockerfile
       sync:

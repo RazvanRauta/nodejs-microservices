@@ -4,11 +4,8 @@
  * Time: 14:59
  */
 
-import mongoose from 'mongoose'
-import { app } from './app'
-import { OrderCancelledListener } from './events/listeners/order-cancelled-listener'
-import { OrderCreatedListener } from './events/listeners/order-created-listener'
-
+import { UserCreatedListener } from './events/listeners/user-created-listener'
+import { PaymentCreatedListener } from './events/listeners/payment-created-listener'
 import { natsWrapper } from './nats-wrapper'
 
 /**
@@ -16,14 +13,6 @@ import { natsWrapper } from './nats-wrapper'
  */
 const start = async () => {
     console.log('Starting....')
-
-    if (!process.env.JWT_KEY) {
-        throw new Error('JWT_KEY is not defined')
-    }
-
-    if (!process.env.MONGO_URI) {
-        throw new Error('MONGO_URI is not defined')
-    }
 
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error('NATS_CLIENT_ID is not defined')
@@ -35,6 +24,18 @@ const start = async () => {
 
     if (!process.env.NATS_CLUSTER_ID) {
         throw new Error('NATS_CLUSTER_ID is not defined')
+    }
+
+    if (!process.env.MAILGUN_API_KEY) {
+        throw new Error('MAILGUN_API_KEY is not defined')
+    }
+
+    if (!process.env.MAILGUN_DOMAIN) {
+        throw new Error('MAILGUN_DOMAIN is not defined')
+    }
+
+    if (!process.env.MAILGUN_FROM) {
+        throw new Error('MAILGUN_FROM is not defined')
     }
 
     try {
@@ -53,24 +54,11 @@ const start = async () => {
         process.on('SIGINT', () => natsWrapper.client.close())
         process.on('SIGTERM', () => natsWrapper.client.close())
 
-        new OrderCreatedListener(natsWrapper.client).listen()
-        new OrderCancelledListener(natsWrapper.client).listen()
-
-        // * Connect to MongoDB
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-        })
-        console.log('Connected to MongoDB')
+        new UserCreatedListener(natsWrapper.client).listen()
+        new PaymentCreatedListener(natsWrapper.client).listen()
     } catch (err) {
         console.log(err)
     }
-
-    /**
-     * Start listening
-     */
-    app.listen(3000, () => console.log('Listening on port 3000!'))
 }
 
 start()

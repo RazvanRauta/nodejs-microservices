@@ -20,7 +20,7 @@ spec:
             value: --max-old-space-size=8192
         resources:
             limits:
-              memory: "490Mi"
+              memory: "500Mi"
               cpu: "250m"
 ---
 apiVersion: v1

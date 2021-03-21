@@ -18,7 +18,7 @@ jobs:
        uses: actions/setup-node@v1
        with:
           node-version: 14.x
-     - name: Install Dependencies (prod)
+     - name: Install Dependencies (All)
        run: cd payments && npm install
      - name: Run Tests (JEST)
        run: cd payments && npm run test:ci

@@ -1,6 +1,5 @@
 name: tests-tickets
 
-
 on:
   pull_request:
     paths:
@@ -10,6 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: cd tickets && npm install && npm run test:ci
+     - name: Git checkout
+       uses: actions/checkout@v2
+
+     - name: Use Node 14.x
+       uses: actions/setup-node@v1
+       with:
+          node-version: 14.x
+     - name: Install Dependencies (ALL)
+       run: cd tickets && npm install
+     - name: Run Tests (JEST)
+       run: cd tickets && npm run test:ci
+       env:
+          CI: true          
       

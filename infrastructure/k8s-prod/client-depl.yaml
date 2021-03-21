@@ -18,6 +18,9 @@ spec:
         env:
           - name: NODE_OPTIONS
             value: --max-old-space-size=8192
+          - name: SERVER_URL_BASE
+            value: http://ticketing.rrazvan.dev
+
 ---
 apiVersion: v1
 kind: Service

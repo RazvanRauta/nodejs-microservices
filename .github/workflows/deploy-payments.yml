@@ -1,0 +1,32 @@
+name: deploy-payments
+on:
+ push:
+   branches:
+     - master
+   paths:
+     - 'payments/**'
+jobs:
+ build:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Git checkout
+      uses: actions/checkout@v2
+    - name: Build Docker Image
+      run: cd payments && docker build -t rrazvandev/payments .
+    - name: Login to Docker Hub
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      env:
+       DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+    - name: Push image to Docker Hub
+      run: docker push rrazvandev/payments
+    - name: Setup doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+       token: ${{secrets.DO_TOKEN}}
+    - name: Get K8S config from DigitalOcean
+      run: doctl kubernetes cluster kubeconfig save ticketing
+    - name: Restart K8S
+      run: kubectl rollout restart deployment payments-depl
+       
+   

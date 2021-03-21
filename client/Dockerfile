@@ -1,12 +1,48 @@
-FROM node:14-alpine
+#-------Deps-------#
+
+FROM node:14-alpine AS deps
+
+RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
 COPY ./package*.json ./
 
-RUN npm install --production
+RUN npm install
+
+#-------Builder-------#
+
+FROM node:14-alpine AS builder
+
+WORKDIR /app
 
 COPY ./ ./
 
-CMD ["npm", "run", "dev"]
+COPY --from=deps /app/node_modules ./node_modules
+
+RUN npm run build
+
+#-------Runner-------#
+
+FROM node:14-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV production
+
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+RUN chown -R nextjs:nodejs /app/.next
+USER nextjs
+
+EXPOSE 3000
+
+RUN npx next telemetry disable
+
+CMD ["node_modules/.bin/next", "start"]
 

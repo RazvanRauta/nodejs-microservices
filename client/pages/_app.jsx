@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-import App from 'next/app'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import buildClient from '@/api/build-client'
 import { removeUser, setUser } from '@/redux/user/action'
@@ -18,14 +17,19 @@ const MyApp = ({ Component, pageProps }) => {
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
     const client = buildClient(ctx)
-    const { data } = await client.get('/api/users/currentuser')
 
-    if (data) {
-        const { currentUser } = data
+    try {
+        const { data } = await client.get('/api/users/currentuser')
 
-        ctx.store.dispatch(setUser(currentUser))
-    } else {
-        ctx.store.dispatch(removeUser())
+        if (data) {
+            const { currentUser } = data
+
+            ctx.store.dispatch(setUser(currentUser))
+        } else {
+            ctx.store.dispatch(removeUser())
+        }
+    } catch (err) {
+        console.log('Error thrown while trying to fetch current user')
     }
 
     return {

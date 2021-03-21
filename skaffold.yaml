@@ -3,7 +3,6 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infrastructure/k8s/*
       - ./infrastructure/k8s-dev/*
 build:
   local:
@@ -12,7 +11,7 @@ build:
     - image: rrazvandev/client
       context: client
       docker:
-        dockerfile: Dockerfile
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: '**/*.jsx'
@@ -22,7 +21,7 @@ build:
     - image: rrazvandev/auth
       context: auth
       docker:
-        dockerfile: Dockerfile
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
@@ -30,7 +29,7 @@ build:
     - image: rrazvandev/tickets
       context: tickets
       docker:
-        dockerfile: Dockerfile
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
@@ -38,7 +37,7 @@ build:
     - image: rrazvandev/orders
       context: orders
       docker:
-        dockerfile: Dockerfile
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
@@ -46,7 +45,7 @@ build:
     - image: rrazvandev/expiration
       context: expiration
       docker:
-        dockerfile: Dockerfile
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
@@ -54,7 +53,7 @@ build:
     - image: rrazvandev/payments
       context: payments
       docker:
-        dockerfile: Dockerfile
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'

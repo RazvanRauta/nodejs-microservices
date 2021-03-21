@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon ./src/index.ts",
+        "build": "tsc --project ./",
         "test": "jest --watchAll --no-cache",
         "test:ci": "jest"
     },
@@ -19,17 +20,17 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@rrazvan.dev/ticketing-common": "^1.0.13",
-        "@types/bull": "^3.15.0",
+        "@rrazvan.dev/ticketing-common": "^1.0.15",
         "bull": "^3.21.1",
-        "node-nats-streaming": "^0.3.2",
-        "nodemon": "^2.0.7",
-        "ts-node": "^9.0.0",
-        "typescript": "^4.0.3"
+        "node-nats-streaming": "^0.3.2"
     },
     "devDependencies": {
+        "@types/bull": "^3.15.0",
         "@types/jest": "^26.0.14",
         "jest": "^26.5.2",
-        "ts-jest": "^26.4.1"
+        "nodemon": "^2.0.7",
+        "ts-jest": "^26.4.1",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.0.3"
     }
 }

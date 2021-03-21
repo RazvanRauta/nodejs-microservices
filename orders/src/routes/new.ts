@@ -65,7 +65,6 @@ router.post(
 
         await new OrderCreatedPublisher(natsWrapper.client).publish({
             id: order.id,
-            //@ts-expect-error
             status: order.status,
             version: order.version,
             userId: order.userId,

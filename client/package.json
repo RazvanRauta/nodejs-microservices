@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "dev": "next",
-        "test:ci": "jest"
+        "test:ci": "jest",
+        "build": "next build",
+        "start": "next start"
     },
     "keywords": [],
     "author": "",

@@ -11,6 +11,8 @@ import { natsWrapper } from './nats-wrapper'
  * Start to listen after connection to MongoDB is successfully
  */
 const start = async () => {
+    console.log('Starting...')
+
     if (!process.env.NATS_CLIENT_ID) {
         throw new Error('NATS_CLIENT_ID is not defined')
     }

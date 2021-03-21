@@ -21,7 +21,7 @@ const LandingPage = ({ tickets }) => {
 
     return (
         <Container fluid="sm">
-            <h1>Tickets</h1>
+            <h1>Available Tickets</h1>
             <Table>
                 <thead>
                     <tr>

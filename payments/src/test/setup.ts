@@ -24,6 +24,8 @@ let mongo: any
 beforeAll(async () => {
     process.env.JWT_KEY = 'parola'
 
+    console.log({ env: process.env })
+
     mongo = new MongoMemoryServer()
     const mongoUri = await mongo.getUri()
 

@@ -21,7 +21,7 @@ jobs:
      - name: Install Dependencies (prod)
        run: cd payments && npm install
      - name: Run Tests (JEST)
-       run: npm run test:ci
+       run: cd payments && npm run test:ci
        env:
           CI: true
           STRIPE_KEY: ${{ secrets.STRIPE_KEY }}

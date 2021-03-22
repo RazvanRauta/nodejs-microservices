@@ -1,6 +1,7 @@
 import { header } from 'express-validator'
 import request from 'supertest'
 import { app } from '../../app'
+import { natsWrapper } from '../../nats-wrapper'
 
 it('returns a 201 on successful signUp', async () => {
     return request(app)
@@ -75,4 +76,16 @@ it('sets cookie after a successful signup', async () => {
         .expect(201)
 
     expect(response.get('Set-Cookie')).toBeDefined()
+})
+
+it('emits an user created event', async () => {
+    await request(app)
+        .post('/api/users/signup')
+        .send({
+            email: 'test@test.com',
+            password: 'password',
+        })
+        .expect(201)
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled()
 })

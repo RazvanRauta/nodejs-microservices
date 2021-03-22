@@ -7,11 +7,13 @@
 import {
     Listener,
     OrderCreatedEvent,
+    OrderStatus,
     Subjects,
 } from '@rrazvan.dev/ticketing-common'
 import { Message } from 'node-nats-streaming'
 
 import { Order } from '../../models/order'
+import { AwaitingPaymentPublisher } from '../publishers/awaiting-payment-publisher'
 import { QUEUE_GROUP_NAME } from './queue-group-name'
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
@@ -22,12 +24,18 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         const order = Order.build({
             id: data.id,
             price: data.ticket.price,
-            status: data.status,
+            status: OrderStatus.AwaitingPayment,
             userId: data.userId,
             version: data.version,
         })
 
         await order.save()
+
+        await new AwaitingPaymentPublisher(this.client).publish({
+            orderId: order.id,
+            version: order.version,
+            status: order.status,
+        })
 
         msg.ack()
     }

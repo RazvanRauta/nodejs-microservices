@@ -6,6 +6,7 @@ const textColor = {
     created: 'text-info',
     cancelled: 'text-danger',
     complete: 'text-success',
+    'awaiting:payment': 'text-warning',
 }
 
 const MyOrders = ({ orders }) => {
@@ -15,7 +16,7 @@ const MyOrders = ({ orders }) => {
                 <td>{order.ticket.title}</td>
                 <td>${order.ticket.price}</td>
                 <td className={textColor[order.status]}>
-                    {capitalize(order.status)}
+                    {capitalize(order.status.split(':').join(' '))}
                 </td>
             </tr>
         )

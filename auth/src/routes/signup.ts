@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken'
 
 import { validateRequest, BadRequestError } from '@rrazvan.dev/ticketing-common'
 import { User } from '../models/user'
+import { UserCreatedPublisher } from '../events/publishers/user-created-publisher'
+import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -42,6 +44,10 @@ router.post(
         req.session = {
             jwt: userJwt,
         }
+
+        await new UserCreatedPublisher(natsWrapper.client).publish({
+            email: user.email,
+        })
 
         res.status(201).send(user)
     }

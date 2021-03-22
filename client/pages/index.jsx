@@ -22,16 +22,20 @@ const LandingPage = ({ tickets }) => {
     return (
         <Container fluid="sm">
             <h1>Available Tickets</h1>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Price</th>
-                        <th>Link</th>
-                    </tr>
-                </thead>
-                <tbody>{ticketList}</tbody>
-            </Table>
+            {tickets && tickets.length ? (
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>{ticketList}</tbody>
+                </Table>
+            ) : (
+                <h3>No tickets are available. Pls create some.</h3>
+            )}
         </Container>
     )
 }

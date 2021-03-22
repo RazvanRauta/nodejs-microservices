@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-depl
+  name: mail-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets
+      app: mail
   template:
     metadata:
       labels:
-        app: tickets
+        app: mail
     spec:
       containers:
-        - name: tickets
-          image: rrazvandev/tickets
+        - name: mail
+          image: rrazvandev/mail
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -24,28 +24,30 @@ spec:
               value: http://nats-srv:4222
             - name: NATS_CLUSTER_ID
               value: ticketing
-            - name: MONGO_URI
-              value: 'mongodb://tickets-mongo-srv:27017/tickets'
-            - name: JWT_KEY
+            - name: MAILGUN_FROM
+              value: admin@ticketing.rrazvan.dev
+            - name: MAILGUN_DOMAIN
+              value: ama.rrazvan.dev
+            - name: MAILGUN_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-secret
-                  key: JWT_KEY
+                  name: mailgun-secret
+                  key: MAILGUN_API_KEY
           resources:
             limits:
               memory: "200Mi"
-              cpu: "200m"
+              cpu: "200m"           
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-srv
+  name: mail-srv
 spec:
   selector:
-    app: tickets
+    app: mail
   ports:
     - port: 3000
-      name: tickets
+      name: mail
       protocol: TCP
       targetPort: 3000

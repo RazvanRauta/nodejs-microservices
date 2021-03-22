@@ -4,7 +4,7 @@
  * Time: 14:59
  */
 
-import { OrderCreatedListener } from './events/listeneres/order-created-listener'
+import { OrderCreatedListener } from './events/listeners/order-created-listener'
 import { natsWrapper } from './nats-wrapper'
 
 /**

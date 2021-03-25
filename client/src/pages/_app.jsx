@@ -1,17 +1,20 @@
-/* eslint-disable */
+import { ChakraProvider } from '@chakra-ui/react'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
 import buildClient from '@/api/build-client'
 import { removeUser, setUser } from '@/redux/user/action'
 import { wrapper } from '@/redux/store'
-import Header from '@/components/Header'
+import { theme } from 'src/theme'
+import { Fonts } from 'src/theme/fonts'
+import Layout from '@/layout'
 
 const MyApp = ({ Component, pageProps }) => {
     return (
-        <>
-            <Header />
-            <Component {...pageProps} />
-        </>
+        <ChakraProvider theme={theme} resetCSS>
+            <Fonts />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </ChakraProvider>
     )
 }
 

@@ -20,10 +20,6 @@ spec:
             value: --max-old-space-size=8192
           - name: SERVER_URL_BASE
             value: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local
-        resources:
-          limits:
-            memory: "500Mi"
-            cpu: "250m"
 
 ---
 apiVersion: v1

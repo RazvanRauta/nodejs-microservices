@@ -1,0 +1,25 @@
+name: tests-client
+
+on:
+  pull_request:
+    paths:
+      - 'client/**'
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Git checkout
+       uses: actions/checkout@v2
+
+     - name: Use Node 14.x
+       uses: actions/setup-node@v1
+       with:
+          node-version: 14.x
+     - name: Install Dependencies (ALL)
+       run: cd client && npm install
+     - name: Run Tests (JEST)
+       run: cd client && npm run test:ci
+       env:
+          CI: true          
+      

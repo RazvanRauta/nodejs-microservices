@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import useRequest from '@/hooks/use-request'
 import { useRouter } from 'next/router'
+import { Container } from '@chakra-ui/layout'
 
 const SignOut = () => {
     const router = useRouter()
@@ -16,9 +17,9 @@ const SignOut = () => {
     }, [])
 
     return (
-        <div>
+        <Container>
             Signing you out.. <br /> {errors}
-        </div>
+        </Container>
     )
 }
 

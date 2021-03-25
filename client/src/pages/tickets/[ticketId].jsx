@@ -1,7 +1,8 @@
-import useRequest from 'hooks/use-request'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { Container, Button } from 'react-bootstrap'
+import { Container, Heading, Text } from '@chakra-ui/layout'
+import { Button } from '@chakra-ui/button'
+import useRequest from '@/hooks/use-request'
 
 const TicketPreview = ({ ticket }) => {
     const router = useRouter()
@@ -17,11 +18,17 @@ const TicketPreview = ({ ticket }) => {
     })
 
     return (
-        <Container fluid="sm">
-            <h1>{ticket.title}</h1>
-            <h4>Price: ${ticket.price}</h4>
+        <Container>
+            <Heading data-testid="ticket-title" mb={6} size={'xl'} as={'h2'}>
+                {ticket.title}
+            </Heading>
+            <Text>Price: ${ticket.price}</Text>
             {errors}
-            <Button variant="primary" type="submit" onClick={() => doRequest()}>
+            <Button
+                type="submit"
+                mt="20px"
+                colorScheme="teal"
+                onClick={() => doRequest()}>
                 Purchase
             </Button>
         </Container>

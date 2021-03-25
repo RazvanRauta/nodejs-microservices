@@ -1,7 +1,7 @@
+import { Heading, Stack, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import { get } from 'lodash'
 import { useState } from 'react'
-import { Alert } from 'react-bootstrap'
 
 const useRequest = ({ url, method, body, onSuccess }) => {
     const [errors, setErrors] = useState(null)
@@ -18,14 +18,16 @@ const useRequest = ({ url, method, body, onSuccess }) => {
             const errors = get(errs, 'response.data.errors', [])
             errors.length > 0
                 ? setErrors(
-                      <Alert variant="danger">
-                          <h4>Ooops...</h4>
-                          <ul className="my-0">
+                      <Text mt="7" color="red.500">
+                          <Heading mb="3" as={'h4'} size="md">
+                              Ooops...
+                          </Heading>
+                          <Stack direction="column">
                               {errors.map((err) => (
-                                  <li key={err.message}>{err.message}</li>
+                                  <Text key={err.message}>{err.message}</Text>
                               ))}
-                          </ul>
-                      </Alert>
+                          </Stack>
+                      </Text>
                   )
                 : setErrors(null)
         }

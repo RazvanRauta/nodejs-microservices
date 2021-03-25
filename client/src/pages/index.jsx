@@ -13,7 +13,7 @@ const LandingPage = ({ tickets }) => {
                         href="/tickets/[ticketId]"
                         as={`/tickets/${ticket.id}`}
                         passHref>
-                        <Link>View</Link>
+                        <Link textColor="blue.300">View</Link>
                     </NextLink>
                 </Td>
             </Tr>

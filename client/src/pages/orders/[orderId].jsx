@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Container } from 'react-bootstrap'
 import StripeCheckout from 'react-stripe-checkout'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 import { getUser } from '@/redux/user/selectors'
-import useRequest from 'hooks/use-request'
+import useRequest from '@/hooks/use-request'
+import { Container, Text } from '@chakra-ui/layout'
 
 const OrderPreview = ({ order }) => {
     const [timeLeft, setTimeLeft] = useState(null)
@@ -42,13 +42,13 @@ const OrderPreview = ({ order }) => {
     }, [])
 
     return (
-        <Container fluid="sm">
+        <Container mt="20px">
             {timeLeft ? (
-                <p>
+                <Text>
                     Time left to pay: {timeLeft} seconds {currentUser.email}
-                </p>
+                </Text>
             ) : (
-                <p>Order expired! Pls make the order again.</p>
+                <Text>Order expired! Pls make the order again.</Text>
             )}
             {timeLeft ? (
                 <StripeCheckout

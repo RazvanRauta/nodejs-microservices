@@ -42,9 +42,9 @@ const OrderPreview = ({ order }) => {
     }, [])
 
     return (
-        <Container mt="20px">
+        <Container maxW={'container.md'}>
             {timeLeft ? (
-                <Text>
+                <Text mb="20px">
                     Time left to pay: {timeLeft} seconds {currentUser.email}
                 </Text>
             ) : (

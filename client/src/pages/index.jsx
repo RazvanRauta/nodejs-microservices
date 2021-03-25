@@ -22,11 +22,7 @@ const LandingPage = ({ tickets }) => {
 
     return (
         <Container>
-            <Heading
-                data-testid="available-tickets"
-                mt={3}
-                size={'2xl'}
-                as={'h2'}>
+            <Heading data-testid="available-tickets" size={'2xl'} as={'h2'}>
                 Available Tickets
             </Heading>
             {tickets && tickets.length ? (

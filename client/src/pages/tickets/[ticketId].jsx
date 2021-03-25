@@ -18,7 +18,7 @@ const TicketPreview = ({ ticket }) => {
     })
 
     return (
-        <Container mt="20px">
+        <Container>
             <Heading data-testid="ticket-title" mb={6} size={'xl'} as={'h2'}>
                 {ticket.title}
             </Heading>

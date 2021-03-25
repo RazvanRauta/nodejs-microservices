@@ -29,7 +29,7 @@ const SignIn = () => {
     }
 
     return (
-        <Container size="container.md" mt={10}>
+        <Container maxW={'container.md'}>
             <Heading data-testid="sign-in" mb={6} size={'xl'} as={'h2'}>
                 Sign In
             </Heading>

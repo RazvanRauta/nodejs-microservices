@@ -7,7 +7,7 @@ module.exports = {
             jsx: true, // Enable JSX since we're using React
         },
     },
-    plugins: ['simple-import-sort'],
+    plugins: ['simple-import-sort', 'jest'],
     settings: {
         react: {
             version: 'detect', // Automatically detect the react version
@@ -17,6 +17,7 @@ module.exports = {
         browser: true, // Enables browser globals like window and document
         amd: true, // Enables require() and define() as global variables as per the amd spec.
         node: true, // Enables Node.js global variables and Node.js scoping.
+        'jest/globals': true, //Enables Jest globals
     },
     extends: [
         'eslint:recommended',

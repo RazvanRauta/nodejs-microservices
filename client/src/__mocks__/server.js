@@ -3,7 +3,6 @@ import { setupServer } from 'msw/node'
 
 const handlers = [
     rest.get('/api/tickets', (req, res, ctx) => {
-        console.log(req)
         return res(
             ctx.status(200),
             ctx.json([

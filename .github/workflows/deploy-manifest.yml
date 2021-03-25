@@ -18,6 +18,6 @@ jobs:
     - name: Get K8S config from DigitalOcean
       run: doctl kubernetes cluster kubeconfig save ticketing
     - name: Restart K8S
-      run: kubectl apply -f infrastructure/k8s && kubectl apply -f infrastructure/k8s-prod
+      run: kubectl apply -f infrastructure/k8s-prod
        
    

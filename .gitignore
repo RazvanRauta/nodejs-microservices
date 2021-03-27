@@ -3,3 +3,4 @@ build
 tls.crt
 tls.key
 .next
+coverage

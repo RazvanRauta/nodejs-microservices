@@ -1,11 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import useRequest from '@/hooks/use-request'
-import { Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { Container, Heading } from '@chakra-ui/layout'
-import { FormControl, FormLabel } from '@chakra-ui/form-control'
-import { Input } from '@chakra-ui/input'
 import { Button } from '@chakra-ui/button'
+import FormInput from '@/components/FormInput'
 
 const NewTicket = () => {
     const router = useRouter()
@@ -22,14 +21,14 @@ const NewTicket = () => {
         actions.setSubmitting(false)
     }
 
-    const onBlur = (price) => {
-        const value = parseFloat(price)
+    const onBlurPrice = ({ values, setFieldValue, handleBlur }, event) => {
+        const value = parseFloat(values['price'])
 
         if (isNaN(value)) {
-            return 0
+            return ''
         }
-
-        return value.toFixed(2)
+        setFieldValue('price', value.toFixed(2))
+        handleBlur(event)
     }
 
     return (
@@ -45,44 +44,20 @@ const NewTicket = () => {
                 }}>
                 {(props) => (
                     <Form>
-                        <Field name="title" type="text">
-                            {({ field }) => (
-                                <FormControl>
-                                    <FormLabel htmlFor="title">Title</FormLabel>
-                                    <Input
-                                        {...field}
-                                        id="title"
-                                        placeholder="Enter title"
-                                    />
-                                </FormControl>
-                            )}
-                        </Field>
-                        <Field name="price" type="number">
-                            {({ field }) => {
-                                return (
-                                    <FormControl mt={3}>
-                                        <FormLabel htmlFor="price">
-                                            Password
-                                        </FormLabel>
-                                        <Input
-                                            {...field}
-                                            id="price"
-                                            placeholder="Enter price"
-                                            onBlur={(event) => {
-                                                const formatted = onBlur(
-                                                    props.values['price']
-                                                )
-                                                props.setFieldValue(
-                                                    'price',
-                                                    formatted
-                                                )
-                                                props.handleBlur(event)
-                                            }}
-                                        />
-                                    </FormControl>
-                                )
-                            }}
-                        </Field>
+                        <FormInput
+                            name="title"
+                            type="text"
+                            placeholder="Enter title"
+                            label="Title"
+                        />
+                        <FormInput
+                            name="price"
+                            type="number"
+                            placeholder="Enter price"
+                            label="Price"
+                            formProps={props}
+                            onBlur={onBlurPrice}
+                        />
                         {errors}
                         <Button
                             mt={4}

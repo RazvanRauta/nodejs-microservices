@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { Container, Heading } from '@chakra-ui/layout'
-import { FormControl, FormLabel, Input, Button } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 
 import useRequest from '@/hooks/use-request'
 import { setUser } from '@/redux/user/action'
-import { Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
+import FormInput from '@/components/FormInput'
 
 const SignIn = () => {
     const dispatch = useDispatch()
@@ -38,35 +39,18 @@ const SignIn = () => {
                 onSubmit={onSubmit}>
                 {(props) => (
                     <Form>
-                        <Field name="email" type="email">
-                            {({ field }) => (
-                                <FormControl>
-                                    <FormLabel htmlFor="email">
-                                        Email address
-                                    </FormLabel>
-                                    <Input
-                                        {...field}
-                                        id="email"
-                                        placeholder="Enter email"
-                                    />
-                                </FormControl>
-                            )}
-                        </Field>
-                        <Field name="password" type="password">
-                            {({ field }) => (
-                                <FormControl mt={3}>
-                                    <FormLabel htmlFor="password">
-                                        Password
-                                    </FormLabel>
-                                    <Input
-                                        {...field}
-                                        id="password"
-                                        placeholder="Password"
-                                        type="password"
-                                    />
-                                </FormControl>
-                            )}
-                        </Field>
+                        <FormInput
+                            name="email"
+                            type="email"
+                            placeholder="Enter email"
+                            label="Email Address"
+                        />
+                        <FormInput
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            label="Password"
+                        />
                         {errors}
                         <Button
                             mt={4}

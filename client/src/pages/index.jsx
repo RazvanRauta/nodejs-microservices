@@ -26,7 +26,7 @@ const LandingPage = ({ tickets }) => {
                 Available Tickets
             </Heading>
             {tickets && tickets.length ? (
-                <Table data-testid="tickets-table">
+                <Table mt="40px" data-testid="tickets-table">
                     <Thead>
                         <Tr>
                             <Th>Title</Th>
@@ -38,7 +38,12 @@ const LandingPage = ({ tickets }) => {
                 </Table>
             ) : (
                 <Heading data-testid="no-tickets" as={'h4'} mt={6} size={'lg'}>
-                    No tickets are available. Pls create some.
+                    No tickets are available. Pls create some:{' '}
+                    <NextLink href="/tickets/new" passHref>
+                        <Link fontSize="20px" textColor="blue.300">
+                            Sell Tickets
+                        </Link>
+                    </NextLink>
                 </Heading>
             )}
         </Container>
@@ -46,9 +51,13 @@ const LandingPage = ({ tickets }) => {
 }
 
 LandingPage.getInitialProps = async (context, client) => {
-    const { data } = await client.get('/api/tickets')
-
-    return { tickets: data }
+    try {
+        const { data } = await client.get('/api/tickets')
+        return { tickets: data }
+    } catch (err) {
+        console.log('Error while trying to fetch tickets')
+    }
+    return { tickets: [] }
 }
 
 export default LandingPage

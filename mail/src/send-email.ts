@@ -1,35 +1,21 @@
-import nodemailer, { Transporter } from 'nodemailer'
-import mg from 'nodemailer-mailgun-transport'
+/**
+ * @ @author: Razvan Rauta
+ * @ Date: Mar 21 2021
+ * @ Time: 20:15
+ */
+
 import handlebars from 'handlebars'
 import fs from 'fs'
 import path from 'path'
+import smtpTransport from './smtpTransport'
 
 interface SendWelcomeEmail {
     to: string
 }
-
-let smtpTransport: Transporter
-
-const mailgunTransport = nodemailer.createTransport(
-    mg({
-        auth: {
-            api_key: process.env.MAILGUN_API_KEY!,
-            domain: process.env.MAILGUN_DOMAIN!,
-        },
-        host: 'api.eu.mailgun.net',
-    })
-)
-
-const mailtrapTransport = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-        user: 'user',
-        pass: 'pass',
-    },
-})
-
-smtpTransport = process.env.MAIL_TEST ? mailtrapTransport : mailgunTransport
+interface SendPaymentEmail {
+    to: string
+    orderId: string
+}
 
 export const sendWelcomeEmail = async (
     props: SendWelcomeEmail
@@ -53,6 +39,37 @@ export const sendWelcomeEmail = async (
     try {
         const { message } = await smtpTransport.sendMail(mailOptions)
         return message ?? `Mail sent to ${props.to}`
+    } catch (error) {
+        if (!process.env.MAIL_TEST) {
+            console.log('Failed to send e-mail', error)
+            return 'Failed to send e-mail'
+        }
+    }
+    return 'Check mailtrap'
+}
+
+export const sendPaymentEmail = async (
+    props: SendPaymentEmail
+): Promise<string> => {
+    const emailTemplateSource = fs.readFileSync(
+        path.join(__dirname, `templates/payment.hbs`),
+        'utf8'
+    )
+
+    const template = handlebars.compile(emailTemplateSource)
+
+    const htmlToSend = template({ orderId: props.orderId })
+
+    const mailOptions = {
+        from: process.env.MAILGUN_FROM!,
+        to: props.to,
+        subject: `Payment for order ${props.orderId}`,
+        html: htmlToSend,
+    }
+
+    try {
+        const { message } = await smtpTransport.sendMail(mailOptions)
+        return message ?? `Payment mail sent to ${props.to}`
     } catch (error) {
         if (!process.env.MAIL_TEST) {
             console.log('Failed to send e-mail', error)

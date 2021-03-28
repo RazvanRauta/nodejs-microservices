@@ -20,7 +20,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@rrazvan.dev/ticketing-common": "^1.0.16",
+        "@rrazvan.dev/ticketing-common": "^1.0.18",
         "handlebars": "^4.7.7",
         "node-nats-streaming": "^0.3.2",
         "nodemailer": "^6.5.0",

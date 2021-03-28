@@ -6,7 +6,9 @@ const NavLink = ({ href, label }) => (
         <Link
             px={2}
             py={1}
+            marginLeft={0}
             maxH={'max-content'}
+            minW="fit-content"
             rounded={'md'}
             border="1px transparent solid"
             fontWeight="semibold"

@@ -1,8 +1,8 @@
 import { render, server, rest } from '@/test/test-utils'
 import { makeTestStore } from '@/__mocks__/store'
 import React from 'react'
-import LandingPage from '../'
-import buildClient from '../../api/build-client'
+import LandingPage from '../pages/index'
+import buildClient from '../api/build-client'
 
 const client = buildClient({})
 let store

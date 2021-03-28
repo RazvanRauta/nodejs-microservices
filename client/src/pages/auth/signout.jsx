@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import useRequest from '@/hooks/use-request'
 import { useRouter } from 'next/router'
 import { Container } from '@chakra-ui/layout'
+import SEO from '@/components/SEO'
 
 const SignOut = () => {
     const router = useRouter()
@@ -17,9 +18,12 @@ const SignOut = () => {
     }, [])
 
     return (
-        <Container>
-            Signing you out.. <br /> {errors}
-        </Container>
+        <>
+            <SEO title="Sign Out" />
+            <Container>
+                Signing you out.. <br /> {errors}
+            </Container>
+        </>
     )
 }
 

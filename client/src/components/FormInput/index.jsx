@@ -15,7 +15,7 @@ const FormInput = ({
         onBlur(formProps, event)
     }
     return (
-        <Field name={name} type={type}>
+        <Field name={name}>
             {({ field }) => {
                 return (
                     <FormControl mt={3}>
@@ -23,6 +23,7 @@ const FormInput = ({
                         <Input
                             {...field}
                             id={name}
+                            type={type}
                             placeholder={placeholder}
                             onBlur={onBlur ? handleOnBlur : null}
                             _focus={{

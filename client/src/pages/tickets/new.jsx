@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik'
 import { Container, Heading } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 import FormInput from '@/components/FormInput'
+import SEO from '@/components/SEO'
 
 const NewTicket = () => {
     const router = useRouter()
@@ -32,44 +33,47 @@ const NewTicket = () => {
     }
 
     return (
-        <Container maxW={'container.md'}>
-            <Heading data-testid="add-new" mb={6} size={'xl'} as={'h2'}>
-                Add new ticket
-            </Heading>
-            <Formik
-                onSubmit={onSubmit}
-                initialValues={{
-                    title: '',
-                    price: '',
-                }}>
-                {(props) => (
-                    <Form>
-                        <FormInput
-                            name="title"
-                            type="text"
-                            placeholder="Enter title"
-                            label="Title"
-                        />
-                        <FormInput
-                            name="price"
-                            type="number"
-                            placeholder="Enter price"
-                            label="Price"
-                            formProps={props}
-                            onBlur={onBlurPrice}
-                        />
-                        {errors}
-                        <Button
-                            mt={4}
-                            colorScheme="teal"
-                            isLoading={props.isSubmitting}
-                            type="submit">
-                            Create
-                        </Button>
-                    </Form>
-                )}
-            </Formik>
-        </Container>
+        <>
+            <SEO title="Add new ticket" />
+            <Container maxW={'container.md'}>
+                <Heading data-testid="add-new" mb={6} size={'xl'} as={'h2'}>
+                    Add new ticket
+                </Heading>
+                <Formik
+                    onSubmit={onSubmit}
+                    initialValues={{
+                        title: '',
+                        price: '',
+                    }}>
+                    {(props) => (
+                        <Form>
+                            <FormInput
+                                name="title"
+                                type="text"
+                                placeholder="Enter title"
+                                label="Title"
+                            />
+                            <FormInput
+                                name="price"
+                                type="number"
+                                placeholder="Enter price"
+                                label="Price"
+                                formProps={props}
+                                onBlur={onBlurPrice}
+                            />
+                            {errors}
+                            <Button
+                                mt={4}
+                                colorScheme="teal"
+                                isLoading={props.isSubmitting}
+                                type="submit">
+                                Create
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            </Container>
+        </>
     )
 }
 

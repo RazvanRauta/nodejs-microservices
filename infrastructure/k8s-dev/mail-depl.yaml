@@ -38,16 +38,3 @@ spec:
               memory: "200Mi"
               cpu: "200m"           
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mail-srv
-spec:
-  selector:
-    app: mail
-  ports:
-    - port: 3000
-      name: mail
-      protocol: TCP
-      targetPort: 3000

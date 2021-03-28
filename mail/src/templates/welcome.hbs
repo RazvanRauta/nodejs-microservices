@@ -1,39 +1,161 @@
-<html>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
     <title>Welcome to Ticketing</title>
-    <style>
-        body {
-            font-size: 18px;
-            width: 100%;
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if gte mso 9]><xml>
+	      <o:OfficeDocumentSettings>
+		    <o:AllowPNG/>
+		    <o:PixelsPerInch>96</o:PixelsPerInch>
+		  </o:OfficeDocumentSettings>
+		</xml><![endif]-->
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        html,
+        body,
+        table {
             height: 100%;
         }
 
-        .main-wrapper {
-            width: 600px;
+        body {
+            color: #4A5568;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        table .header,
+        table .footer {
+            background-image: linear-gradient(to left, #7928CA, #FF0080);
+            height: 30px;
+            width: 100%;
             max-width: 100%;
             margin: 0 auto;
+            padding: 0;
+            z-index: 10;
         }
 
-        .title {
-            font-size: 24px;
+        table .main-wrapper {
+            width: 600px;
+            max-width: 90vw;
+            margin: 0 auto;
+            padding: 0 10px;
+            font-size: 18px;
+            text-align: left;
+            letter-spacing: -0.5px;
+        }
+
+        table .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)), url("https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 200px;
+            position: relative;
+            max-width: 100%;
+
+        }
+
+        table .title {
+            font-size: 30px;
             margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #FF0080;
+            margin: 0;
+            padding: 0;
+            text-shadow: 4px 4px 2px rgba(121, 40, 202, 1);
+            padding-top: 50px;
+            padding-left: 30px;
+
         }
 
-        .end-msg {
+        table .end-msg {
             margin-top: 20px;
             margin-bottom: 10px;
+        }
+
+        table .footer-wrapper {
+            width: 600px;
+            max-width: 90vw;
+            margin: 0 auto;
+            padding: 10px 10px 0;
+            text-align: center;
+        }
+
+        table .footer-wrapper a.rraz-link {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            min-height: 45px;
+            margin-bottom: -1px;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: left;
+            color: #7928CA;
+            transition: color .15s;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: transparent;
+
+        }
+
+        @media only screen and (max-width: 600px) {
+            table .title {
+                top: 20%;
+            }
         }
     </style>
 </head>
 
-<body>
-    <div class="main-wrapper">
-        <h2 class="title">Welcome to Ticketing</h2>
-        <p>Hello there!</p><br />
-        <p>Your account has been registered successfully!</p><br />
-        <p class="end-msg">Have a wonderful day!</p>
+<body style="margin:0;padding:0;min-width:100%;background-color:#ffffff;">
+
+    <div
+        style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
     </div>
+
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="min-width: 100%;" role="presentation">
+        <tbody>
+            <tr>
+                <td style="vertical-align: top;height: 30px;">
+                    <div class="header"> </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: top;">
+                    <div class="hero">
+                        <h2 class="title">Welcome to Ticketing</h2>
+                    </div>
+                    <div class="main-wrapper">
+                        <p>Hello there!</p>
+                        <p>Your account has been registered successfully!</p>
+                        <p class="end-msg">Have a wonderful day!</p>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td style="vertical-align: bottom;height: 45px;">
+                    <div class="footer-wrapper">
+                        <a class="rraz-link" href="https://rrazvan.dev" target="_blank">RRazvan | Dev</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align: bottom; height: 30px;">
+                    <div class="footer"> </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </body>
 
 </html>

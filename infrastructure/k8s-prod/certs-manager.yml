@@ -1,0 +1,30 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+ name: letsencrypt-prod
+ namespace: cert-manager
+spec:
+ acme:
+   server: https://acme-v02.api.letsencrypt.org/directory
+   email: e-mail-here
+   privateKeySecretRef:
+     name: letsencrypt-prod
+   solvers:
+   - dns01:
+      digitalocean:
+          tokenSecretRef:
+              name: digitalocean-dns
+              key: access-token
+   - http01:
+       ingress:
+         class:  nginx
+     selector: {}
+      
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: digitalocean-dns
+  namespace: cert-manager
+data:
+  access-token: token-here

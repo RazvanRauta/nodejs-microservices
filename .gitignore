@@ -4,3 +4,4 @@ tls.crt
 tls.key
 .next
 coverage
+k8s-gcloud

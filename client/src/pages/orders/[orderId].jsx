@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { getUser } from '@/redux/user/selectors'
 import useRequest from '@/hooks/use-request'
 import { Container, Text } from '@chakra-ui/layout'
+import SEO from '@/components/SEO'
 
 const OrderPreview = ({ order }) => {
     const [timeLeft, setTimeLeft] = useState(null)
@@ -42,34 +43,41 @@ const OrderPreview = ({ order }) => {
     }, [])
 
     return (
-        <Container maxW={'container.md'}>
-            {timeLeft ? (
-                <Text mb="20px">
-                    Time left to pay: {timeLeft} seconds {currentUser.email}
-                </Text>
-            ) : (
-                <Text>Order expired! Pls make the order again.</Text>
-            )}
-            {timeLeft ? (
-                <StripeCheckout
-                    token={({ id }) => doRequest({ token: id })}
-                    stripeKey={process.env.stripePublicKey}
-                    amount={order.ticket.price * 100}
-                    email={currentUser.email}
-                    description={`Payment for ticket: ${order.ticket.title}`}
-                />
-            ) : null}
-            {errors}
-        </Container>
+        <>
+            <SEO title={`Order ${order.ticket.title}`} />
+            <Container maxW={'container.md'}>
+                {timeLeft ? (
+                    <Text mb="20px">
+                        Time left to pay: {timeLeft} seconds {currentUser.email}
+                    </Text>
+                ) : (
+                    <Text>Order expired! Pls make the order again.</Text>
+                )}
+                {timeLeft ? (
+                    <StripeCheckout
+                        token={({ id }) => doRequest({ token: id })}
+                        stripeKey={process.env.stripePublicKey}
+                        amount={order.ticket.price * 100}
+                        email={currentUser.email}
+                        description={`Payment for ticket: ${order.ticket.title}`}
+                    />
+                ) : null}
+                {errors}
+            </Container>
+        </>
     )
 }
 
 OrderPreview.getInitialProps = async (ctx, client) => {
     const { orderId } = ctx.query
+    try {
+        const { data } = await client.get(`/api/orders/${orderId}`)
 
-    const { data } = await client.get(`/api/orders/${orderId}`)
-
-    return { order: data }
+        return { order: data }
+    } catch (err) {
+        console.log('Error while trying to fetch order')
+    }
+    return { order: [] }
 }
 
 export default OrderPreview

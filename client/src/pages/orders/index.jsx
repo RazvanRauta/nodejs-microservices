@@ -2,6 +2,7 @@ import capitalize from 'lodash/capitalize'
 import React from 'react'
 import { Heading, Container } from '@chakra-ui/layout'
 import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
+import SEO from '@/components/SEO'
 
 const textColor = {
     created: 'teal.500',
@@ -24,28 +25,37 @@ const MyOrders = ({ orders }) => {
     })
 
     return (
-        <Container>
-            <Heading data-testid="my-orders" mb={6} size={'xl'} as={'h2'}>
-                My Orders
-            </Heading>
-            <Table>
-                <Thead>
-                    <Tr>
-                        <Th>Ticket Title</Th>
-                        <Th>Ticket Price</Th>
-                        <Th>Order Status</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>{ordersList}</Tbody>
-            </Table>
-        </Container>
+        <>
+            <SEO title="My Orders" />
+
+            <Container>
+                <Heading data-testid="my-orders" mb={6} size={'xl'} as={'h2'}>
+                    My Orders
+                </Heading>
+                <Table>
+                    <Thead>
+                        <Tr>
+                            <Th>Ticket Title</Th>
+                            <Th>Ticket Price</Th>
+                            <Th>Order Status</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>{ordersList}</Tbody>
+                </Table>
+            </Container>
+        </>
     )
 }
 
 MyOrders.getInitialProps = async (ctx, client) => {
-    const { data } = await client.get(`/api/orders`)
+    try {
+        const { data } = await client.get(`/api/orders`)
 
-    return { orders: data }
+        return { orders: data }
+    } catch (err) {
+        console.log('Error while trying to fetch orders')
+    }
+    return { orders: [] }
 }
 
 export default MyOrders

@@ -10,12 +10,13 @@ const SEO = ({ title = null }) => {
             defaultTitle="GetTix | RRazvan"
             canonical="https://stage-gettix.rrazvan.dev/"
             openGraph={{
-                url: 'https://stage-gettix.rrazvan.dev/assets/images/meta.png',
+                url: 'https://stage-gettix.rrazvan.dev/',
                 title: 'GetTix | RRazvan',
                 description: 'Microservices example with NodeJS and NextJS',
                 images: [
                     {
-                        url: 'https://www.example.ie/og-image-01.jpg',
+                        url:
+                            'https://stage-gettix.rrazvan.dev/assets/images/meta.png',
                         width: 769,
                         height: 362,
                         alt: 'GetTix',

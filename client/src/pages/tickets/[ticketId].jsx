@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import { Container, Heading, Text } from '@chakra-ui/layout'
+import { useSelector } from 'react-redux'
+import { getUser } from '@/redux/user/selectors'
 import { Button } from '@chakra-ui/button'
 import useRequest from '@/hooks/use-request'
 import SEO from '@/components/SEO'
 
 const TicketPreview = ({ ticket }) => {
     const router = useRouter()
+    const currentUser = useSelector((state) => getUser(state))
 
     const { doRequest, errors } = useRequest({
         url: '/api/orders',
@@ -19,7 +22,7 @@ const TicketPreview = ({ ticket }) => {
     })
 
     if (!ticket) {
-        return null
+        return <Text>Ticket not found!</Text>
     }
 
     return (
@@ -35,13 +38,19 @@ const TicketPreview = ({ ticket }) => {
                 </Heading>
                 <Text>Price: ${ticket.price}</Text>
                 {errors}
-                <Button
-                    type="submit"
-                    mt="20px"
-                    colorScheme="teal"
-                    onClick={() => doRequest()}>
-                    Purchase
-                </Button>
+                {currentUser ? (
+                    <Button
+                        type="submit"
+                        mt="20px"
+                        colorScheme="teal"
+                        onClick={() => doRequest()}>
+                        Purchase
+                    </Button>
+                ) : (
+                    <Text>
+                        You have to be logged in to be able to purchase.
+                    </Text>
+                )}
             </Container>
         </>
     )

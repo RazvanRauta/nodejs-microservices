@@ -19,6 +19,7 @@ it('returns a 404 when purchasing an order that does not exist', async () => {
         .send({
             token: 'asldkfj',
             orderId: mongoose.Types.ObjectId().toHexString(),
+            userEmail: 'test@testy.com',
         })
         .expect(404)
 })
@@ -39,6 +40,7 @@ it('returns a 401 when purchasing an order that doesnt belong to the user', asyn
         .send({
             token: 'asldkfj',
             orderId: order.id,
+            userEmail: 'test@testy.com',
         })
         .expect(401)
 })
@@ -60,6 +62,7 @@ it('returns a 400 when purchasing a cancelled order', async () => {
         .send({
             orderId: order.id,
             token: 'asdlkfj',
+            userEmail: 'test@testy.com',
         })
         .expect(400)
 })
@@ -82,6 +85,7 @@ it('returns a 201 with valid inputs', async () => {
         .send({
             token: 'tok_visa',
             orderId: order.id,
+            userEmail: 'test@testy.com',
         })
         .expect(201)
 

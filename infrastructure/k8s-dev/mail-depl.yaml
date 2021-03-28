@@ -25,7 +25,7 @@ spec:
             - name: NATS_CLUSTER_ID
               value: ticketing
             - name: MAILGUN_FROM
-              value: admin@ticketing.rrazvan.dev
+              value: "GetTix <admin@rrazvan.dev>"
             - name: MAILGUN_DOMAIN
               value: ama.rrazvan.dev
             - name: MAILGUN_API_KEY
@@ -38,16 +38,3 @@ spec:
               memory: "200Mi"
               cpu: "200m"           
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mail-srv
-spec:
-  selector:
-    app: mail
-  ports:
-    - port: 3000
-      name: mail
-      protocol: TCP
-      targetPort: 3000

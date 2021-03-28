@@ -33,10 +33,14 @@ router.post(
             .custom((idValue) => MongooseTypes.ObjectId.isValid(idValue))
             .withMessage('The order id must be a valid MongoDB ObjectId'),
         body('token').not().isEmpty().withMessage('The token must be provided'),
+        body('userEmail')
+            .not()
+            .isEmpty()
+            .withMessage('The user email must be provided'),
     ],
     validateRequest,
     async (req: Request, res: Response) => {
-        const { orderId, token } = req.body
+        const { orderId, token, userEmail } = req.body
 
         const order = await Order.findById(orderId)
 
@@ -70,6 +74,7 @@ router.post(
             id: payment.id,
             orderId: payment.orderId,
             stripeId: payment.stripeId,
+            userEmail: userEmail,
         })
 
         res.status(201).send({ id: payment.id })
